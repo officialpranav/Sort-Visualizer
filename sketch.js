@@ -29,7 +29,7 @@ function setup() {
   noStroke();
   doSort = false;
 
-  speedSlider = createSlider(0, 300, 295, 1);
+  speedSlider = createSlider(5, 300, 295, 1);
   speedSlider.position(10, canvasHeight + 50)
   speedSlider.style('width', '200px');
 
@@ -200,7 +200,7 @@ function reset(){
 
 function draw() {
   background(22);
-  msDelay = (301 - speedSlider.value());
+  
   if(numElementsSlider.value() != numElements){
     reset();
   }
@@ -211,8 +211,9 @@ function draw() {
   //Labels  
   fill(255);
   textSize(20);
-  text('Animation Speed', 20, canvasHeight + 40);
-  text('Number of Elements', 260, canvasHeight + 40);
+  text('Animation Speed', 15, canvasHeight + 40);
+  text('Number of Elements', 255, canvasHeight + 40);
+  text('Select sorting algorithm', 500, canvasHeight + 40);
   fill(220);
 
 
@@ -222,11 +223,13 @@ function draw() {
   }
 
   if(sortSelect.value()=='Quick sort'){
+    msDelay = (301 - speedSlider.value());
     if(index < 1) {
       quickSort(nums, 0, nums.length-1);
-      index ++;
+      index++;
     }
   } else if(sortSelect.value()=='Bubble sort' || sortSelect.value()=='Insertion sort'){
+    frameRate(speedSlider.value()/5);
     if(doSort){
       if(index>numElements){
         toggleSort();
@@ -247,4 +250,3 @@ function draw() {
 function sortSelectChanged(){
   reset();
 }
-
